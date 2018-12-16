@@ -1,0 +1,8 @@
+name=hello world
+description=some test item
+properties=color:3=red;weight:5=200gk
+BREAK
+name=item 2
+description=description for second item
+properties=quantity:2=60
+BREAK
