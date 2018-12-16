@@ -11,11 +11,11 @@ typedef struct BDLNode {
     void *data;
     struct BDLNode *next;
 
-    void (*pFreeDataCb)(void *);
+    void (*pFreeDataCb)(void **);
 } BDLNode;
 
 
-BDLNode *allocateBDLNode(void *data, void (*pFreeDataCb)(void *));
+BDLNode *allocateBDLNode(void *data, void (*pFreeDataCb)(void **));
 
 void freeBDLNode(BDLNode *bdlNode, int recursive);
 

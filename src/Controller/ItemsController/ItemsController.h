@@ -12,8 +12,11 @@ int itemsControllerList(Container *container);
 
 int itemsControllerNew(Container *container);
 
-int itemsControllerEdit(Container *container);
+int itemsControllerEdit(Container *container, Item *item);
 
-int itemsControllerDelete(Container *container);
+
+void _itemsControllerPrint(Item *item, size_t index, BDList *bdList);
+
+int _itemsControllerDelete(Container *container, Item *item);
 
 #endif /* ITEMSCONTROLLER_H */

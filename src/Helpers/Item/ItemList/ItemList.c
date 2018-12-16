@@ -18,6 +18,7 @@ BDList *bootstrapItemList() {
 
     for (size_t i = 0; i < fileItems->length; ++i) {
         Item *item = allocateItem();
+        item->id = bdItemList->length;
         appendToBDList(bdItemList, allocateBDLNode(item, &freeItem));
 
         BDList *fileItemLines = split(((String *) getBDLNodeByIndex(fileItems, i)->data), "\n", -1);

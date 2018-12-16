@@ -6,22 +6,12 @@ int itemsControllerIndex(Container *container) {
     while (1) {
         printTitle("Items");
 
-        int action = getAction("Actions: 1 - List; 2 - New; 3 - Edit; 4 - Delete", 4);
+        mapBDList(container->state->items, &_itemsControllerPrint);
+
+        int action = getAction("1 - New", 1);
         switch (action) {
             case 1:
-                itemsControllerList(container);
-                break;
-
-            case 2:
                 itemsControllerNew(container);
-                break;
-
-            case 3:
-                itemsControllerEdit(container);
-                break;
-
-            case 4:
-                itemsControllerDelete(container);
                 break;
 
             default:
@@ -31,37 +21,62 @@ int itemsControllerIndex(Container *container) {
 }
 
 
-void _printItem(Item *item, size_t index, BDList *bdList) {
-    printf("Item: [%ld]:\n", index + 1);
-    printItem(item);
+int itemsControllerNew(Container *container) {
+    printTitle("Items - New");
 
-    if (index + 1 < bdList->length) {
+    Item *item = newItem();
+    item->id = container->state->items->length;
+    appendToBDList(container->state->items, allocateBDLNode(item, &freeItem));
+
+    return itemsControllerEdit(container, item);
+}
+
+
+int itemsControllerEdit(Container *container, Item *item) {
+    while (1) {
+        printTitle("Items - Edit");
+
+        _itemsControllerPrint(item, 0, NULL);
+
+        int action = getAction("Change: 1 - Name; 2 - Description; 3 - Count; Other: 4 - Delete", 4);
+        switch (action) {
+            case 1:
+                updateItemName(item);
+                break;
+
+            case 2:
+                updateItemDescription(item);
+                break;
+
+            case 3:
+                updateItemCount(item);
+                break;
+
+            case 4:
+                _itemsControllerDelete(container, item);
+                return 0;
+
+            default:
+                return 0;
+        }
+    }
+}
+
+
+void _itemsControllerPrint(Item *item, size_t index, BDList *bdList) {
+    printf(" %-5ld |", item->id);
+    printf(" %-50s |", item->name->buffer);
+    printf(" %-50s", item->description->buffer);
+
+    printf("\n");
+    if (bdList && index + 1 < bdList->length) {
+        _printDivider(NULL, '-', width);
         printf("\n");
     }
 }
 
-int itemsControllerList(Container *container) {
-    printTitle("Items - List");
+int _itemsControllerDelete(Container *container, Item *item) {
+    printf("This action couldn't be undone, are you sure you want to delete this item? [Y/n]");
 
-    mapBDList(container->state->items, &_printItem);
-
-    return 0;
-}
-
-
-int itemsControllerNew(Container *container) {
-    printTitle("Items - New");
-    return 0;
-}
-
-
-int itemsControllerEdit(Container *container) {
-    printTitle("Items - Edit");
-    return 0;
-}
-
-
-int itemsControllerDelete(Container *container) {
-    printTitle("Items - Delete");
     return 0;
 }

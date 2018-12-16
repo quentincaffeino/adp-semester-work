@@ -2,6 +2,55 @@
 #include "Chars.h"
 
 
+char *readCharsLine(void *from) {
+    char *chars = NULL;
+
+    if (from) {
+        fflush(from);
+        size_t bufferLength = CHARS_BUFFER_SIZE;
+        chars = calloc(bufferLength, sizeof(char));
+
+        char ch;
+        size_t i = 0;
+        while ((ch = fgetc(from)) && ch != '\n' && ch != EOF) {
+            if (i >= bufferLength) {
+                bufferLength += CHARS_BUFFER_SIZE;
+                chars = realloc(chars, bufferLength);
+            }
+
+            chars[i] = ch;
+            ++i;
+        }
+
+        chars = realloc(chars, i + 1);
+    }
+
+    return chars;
+}
+
+size_t charsLength(const char *chars) {
+    size_t length = 0;
+
+    if (chars) {
+        for (; chars[length] != '\0'; ++length);
+    }
+
+    return length;
+}
+
+char *copyChars(const char *chars) {
+    char *newChars = NULL;
+
+    if (chars != NULL) {
+        size_t length = charsLength(chars);
+        newChars = calloc(length + 1, sizeof(char));
+        memcpy(newChars, chars, length);
+    }
+
+    return newChars;
+}
+
+
 int charsToInt(const char *chars) {
     int result = 0;
     int prev;
@@ -29,7 +78,6 @@ int charsToInt(const char *chars) {
     return result;
 }
 
-
 size_t charsToSizeT(const char *chars) {
     size_t result = 0;
     size_t prev;
@@ -55,37 +103,4 @@ size_t charsToSizeT(const char *chars) {
     }
 
     return result;
-}
-
-
-size_t charsLength(const char *chars) {
-    size_t length = 0;
-
-    if (chars != NULL) {
-        for (; chars[length] != '\0'; ++length);
-    }
-
-    return length;
-}
-
-
-char *copyChars(const char *chars) {
-    char *newChars = NULL;
-
-    if (chars != NULL) {
-        size_t length = charsLength(chars);
-        newChars = calloc(length + 1, sizeof(char));
-        memcpy(newChars, chars, length);
-    }
-
-    return newChars;
-}
-
-
-char *escapeChar(char c) {
-    if (c == '\n') return "\\n";
-    if (c == '\t') return "\\t";
-    char *newC = calloc(1, sizeof(char));
-    newC[0] = c;
-    return newC;
 }

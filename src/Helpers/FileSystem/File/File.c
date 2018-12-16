@@ -8,10 +8,10 @@ File *allocateFile() {
 
 void freeFile(File *file) {
     if (file->path != 0 && file->path != NULL) {
-        freeString(file->path);
+        freeString(&file->path);
     }
     if (file->text != 0 && file->text != NULL) {
-        freeString(file->text);
+        freeString(&file->text);
     }
     closeFile(file);
     free(file);

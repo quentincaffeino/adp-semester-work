@@ -7,15 +7,18 @@
 #include <string.h>
 #include <ctype.h>
 
+#define CHARS_BUFFER_SIZE 9
 
-int charsToInt(const char *chars);
 
-size_t charsToSizeT(const char *chars);
+char *readCharsLine(void *from);
 
 size_t charsLength(const char *chars);
 
 char *copyChars(const char *chars);
 
-char *escapeChar(char c);
+
+int charsToInt(const char *chars);
+
+size_t charsToSizeT(const char *chars);
 
 #endif /* CHARS_H */

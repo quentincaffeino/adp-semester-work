@@ -2,13 +2,6 @@
 #include "String.h"
 
 
-size_t askForStringLength() {
-    size_t length = 0;
-    printf("Enter string length: ");
-    int result = scanf(" %lu", &length);
-    return result ? length : 0;
-}
-
 String *allocateString() {
     return calloc(1, sizeof(String));
 }
@@ -20,9 +13,17 @@ String *allocateSizedString(size_t bufferLength) {
     return string;
 }
 
-void freeString(String *string) {
-    free(string->buffer);
-    free(string);
+void reallocString(String *string, size_t newSize) {
+    if (newSize != string->bufferLength) {
+        string->bufferLength = newSize;
+        string->buffer = realloc(string->buffer, string->bufferLength);
+    }
+}
+
+void freeString(String **string) {
+    free((*string)->buffer);
+    free(*string);
+    *string = NULL;
 }
 
 String *charsToString(const char *chars) {
@@ -34,20 +35,6 @@ String *charsToString(const char *chars) {
 
 String *cloneString(String *string) {
     return charsToString(string->buffer);
-}
-
-
-unsigned short int readString(String *string) {
-    memset(string->buffer, '\0', sizeof(char));
-    return fgets(string->buffer, string->bufferLength - 1, stdin) != NULL;
-}
-
-int readInt() {
-    String *string = allocateSizedString(STRING_BUFFER_SIZE);
-    readString(string);
-    int x = charsToInt(string->buffer);
-    freeString(string);
-    return x;
 }
 
 
@@ -77,7 +64,7 @@ String *subString(String *string, size_t beginning, size_t end) {
     return string;
 }
 
-unsigned short int beginsWith(String *string, const char *chars, size_t offset) {
+bool beginsWith(String *string, const char *chars, size_t offset) {
     size_t charsLen = charsLength(chars);
     size_t i = 0;
 
@@ -131,7 +118,8 @@ struct BDList *split(String *string, const char *separator, size_t limit) {
     }
 
     while (end >= 0 && end < string->bufferLength - separatorLength) {
-        if (bdList->length < limit - 1 && (tmpEnd = indexOf(string, separator, end)) >= 0 && tmpEnd < string->bufferLength - separatorLength) {
+        if (bdList->length < limit - 1 && (tmpEnd = indexOf(string, separator, end)) >= 0 &&
+            tmpEnd < string->bufferLength - separatorLength) {
             end = tmpEnd;
             if (VERBOSE) {
                 printc("String: split: ", NULL);
@@ -152,6 +140,30 @@ struct BDList *split(String *string, const char *separator, size_t limit) {
     return bdList;
 }
 
+
+String *readStringLine(void *from) {
+    String *line = NULL;
+
+    if (from) {
+        line = allocateString();
+        line->buffer = readCharsLine(from);
+        line->bufferLength = charsLength(line->buffer) + 1;
+    }
+
+    return line;
+}
+
+int readInt() {
+    int x = 0;
+    String *string = readStringLine(stdin);
+
+    if (string) {
+        x = charsToInt(string->buffer);
+        freeString(&string);
+    }
+
+    return x;
+}
 
 void printc(char *chars, char *color) {
     if (color == NULL) {

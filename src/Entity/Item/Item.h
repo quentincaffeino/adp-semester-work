@@ -19,9 +19,18 @@ typedef struct Item {
 
 Item *allocateItem();
 
-void freeItem(Item *item);
+void freeItem(Item **item);
 
+
+Item *newItem();
 
 void printItem(Item *item);
+
+
+void updateItemName(Item *item);
+
+void updateItemDescription(Item *item);
+
+void updateItemCount(Item *item);
 
 #endif /* ITEM_H */

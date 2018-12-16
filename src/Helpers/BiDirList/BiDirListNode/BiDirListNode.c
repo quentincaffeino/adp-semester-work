@@ -2,7 +2,7 @@
 #include "BiDirListNode.h"
 
 
-BDLNode *allocateBDLNode(void *data, void (*pFreeDataCb)(void *)) {
+BDLNode *allocateBDLNode(void *data, void (*pFreeDataCb)(void **)) {
     BDLNode *bdlNode = calloc(1, sizeof(BDLNode));
     bdlNode->data = data;
     bdlNode->pFreeDataCb = pFreeDataCb;
@@ -32,7 +32,7 @@ void freeBDLNode(BDLNode *bdlNode, int recursive) {
         }
 
         if (bdlNode->pFreeDataCb != 0 && bdlNode->pFreeDataCb != NULL) {
-            bdlNode->pFreeDataCb(bdlNode->data);
+            bdlNode->pFreeDataCb(&bdlNode->data);
         }
         free(bdlNode);
     }
