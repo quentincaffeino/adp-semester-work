@@ -26,7 +26,7 @@ void freeBDLNode(BDLNode **bdlNode, bool recursive) {
                 (*bdlNode)->prev->next = (*bdlNode)->next;
             }
 
-            if (!(*bdlNode)->next) {
+            if ((*bdlNode)->next) {
                 (*bdlNode)->next->prev = (*bdlNode)->prev;
             }
         }

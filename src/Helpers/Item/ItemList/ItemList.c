@@ -27,7 +27,8 @@ BDList *bootstrapItemList() {
         for (size_t j = 0; j < fileItemLines->length; ++j) {
             BDList *fileItemLineKV = split(((String *) getBDLNodeByIndex(fileItemLines, j)->data), "=", 2);
             if (VERBOSE) {
-                mapBDList(fileItemLineKV, &printString); printf("\n");
+                mapBDList(fileItemLineKV, &printString);
+                printf("\n");
             }
 
             if (fileItemLineKV->length == 2) {
@@ -66,7 +67,7 @@ Item *getItemByIdItemList(BDList *bdList, size_t id) {
             if (VERBOSE) printf("ItemList: getItemByIdItemList: [%ld], current item id: %ld\n", i, currentItem->id);
 
             if (currentItem->id == id) {
-                printf("ItemList: getItemByIdItemList: Found: ", id);
+                if (VERBOSE) printf("ItemList: getItemByIdItemList: Found: ", id);
                 return (Item *) currentNode->data;
             }
         }

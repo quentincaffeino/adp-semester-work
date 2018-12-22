@@ -22,6 +22,7 @@ int itemsControllerIndex(Container *container) {
 
             case 2: {
                 Item *item = NULL;
+
                 do {
                     printf("Select item to edit (id): ");
                     size_t id = (size_t) readInt();
@@ -86,6 +87,8 @@ int itemsControllerEdit(Container *container, Item *item) {
 
 
 void _itemsControllerPrintItem(Item *item, size_t index, BDList *bdList) {
+    printf("idx: %ld\n", index);
+
     if (item) {
         printf(" %-5ld", item->id);
         printf(" | %-47.*s", 47, item->name->buffer);
@@ -107,8 +110,8 @@ int _itemsControllerDelete(Container *container, Item *item) {
     BDLNode *bdlNode = findNodeByDataBDList(container->state->items, item);
 
     if (bdlNode) {
-        printf("This action couldn't be undone, are you sure you want to delete this item? [1/0]: ");
-        bool decision = (bool) readInt();
+        printf("This action couldn't be undone, are you sure you want to delete this item? [Y/1/n/0]: ");
+        bool decision = confirm();
         removeFromBDList(container->state->items, bdlNode);
     } else {
         printf("Failed to remove item: \n");

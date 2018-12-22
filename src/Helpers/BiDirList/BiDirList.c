@@ -45,31 +45,44 @@ void appendToBDList(BDList *bdList, struct BDLNode *bdlNode) {
 }
 
 void removeFromBDList(BDList *bdList, struct BDLNode *bdlNode) {
-    BDLNode *currentNode = bdList->data;
+    if (bdList) {
+        BDLNode *currentNode = bdList->data;
 
-    do {
-        if (currentNode == bdlNode) {
-            freeBDLNode(currentNode, false);
-            return;
-        }
-    } while (currentNode = currentNode->next);
+        do {
+            if (currentNode == bdlNode) {
+                if (bdList->data == currentNode) { // Removing first node in list
+                    bdList->data = bdList->data->next;
+                }
+
+                if (bdList->_end == currentNode) { // Removing last node in list
+                    bdList->_end = bdList->_end->prev;
+                }
+
+                freeBDLNode(&currentNode, false);
+                --bdList->length;
+                return;
+            }
+        } while ((currentNode = currentNode->next));
+    }
 }
 
 struct BDLNode *findNodeByDataBDList(BDList *bdList, void *data) {
-    BDLNode *currentNode = bdList->data;
+    if (bdList) {
+        BDLNode *currentNode = bdList->data;
 
-    do {
-        if (currentNode->data == data) return currentNode;
-    } while (currentNode = currentNode->next);
+        do {
+            if (currentNode->data == data) return currentNode;
+        } while ((currentNode = currentNode->next));
+    }
 
     return NULL;
 }
 
 
 void mapBDList(BDList *bdList, void (*callback)(void *, size_t index, BDList *bdList)) {
-    if (VERBOSE) printf("BDList: mapBDList: Length: %ld\n", bdList->length);
+    printf("BDList: mapBDList: Length: %ld\n", bdList->length);
     for (size_t i = 0; i < bdList->length; ++i) {
-        if (VERBOSE) printf("BDList: mapBDList: [%ld]: ", i);
+        printf("BDList: mapBDList: [%ld]: ", i);
         callback((void *) getBDLNodeByIndex(bdList, i)->data, i, bdList);
     }
 }

@@ -48,6 +48,8 @@ String *readStringLine(void *from);
 
 int readInt();
 
+bool confirm();
+
 void printc(char *chars, char *color);
 
 #endif /* STRING_H */

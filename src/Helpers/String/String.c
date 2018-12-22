@@ -96,9 +96,7 @@ long long int indexOf(String *string, const char *chars, size_t offset) {
     size_t i = offset;
 
     while (i < string->bufferLength) {
-        if (beginsWith(string, chars, i)) {
-            return i;
-        }
+        if (beginsWith(string, chars, i)) return i;
 
         ++i;
     }
@@ -113,20 +111,20 @@ struct BDList *split(String *string, const char *separator, size_t limit) {
     size_t tmpEnd = 0;
     size_t separatorLength = strlen(separator);
 
-    if (VERBOSE) {
-        printc("String: split: ", NULL);
-        printf("string: `%s`(%ld); separator: `%s`(%ld)\n", string->buffer, string->bufferLength, separator,
-               separatorLength);
-    }
+//    if (VERBOSE) {
+//        printc("String: split: ", NULL);
+//        printf("string: `%s`(%ld); separator: `%s`(%ld)\n", string->buffer, string->bufferLength, separator,
+//               separatorLength);
+//    }
 
     while (end >= 0 && end < string->bufferLength - separatorLength) {
         if (bdList->length < limit - 1 && (tmpEnd = indexOf(string, separator, end)) >= 0 &&
             tmpEnd < string->bufferLength - separatorLength) {
             end = tmpEnd;
-            if (VERBOSE) {
-                printc("String: split: ", NULL);
-                printf("while: beginning: %ld; end: %ld\n", beginning, end);
-            }
+//            if (VERBOSE) {
+//                printc("String: split: ", NULL);
+//                printf("while: beginning: %ld; end: %ld\n", beginning, end);
+//            }
 
             appendToBDList(bdList, allocateBDLNode(subString(string, beginning, end), &freeString));
 
@@ -165,6 +163,16 @@ int readInt() {
     }
 
     return x;
+}
+
+bool confirm() {
+    String *s = readStringLine(stdin);
+    bool confirmed = s->bufferLength == 1 || (s->bufferLength > 1 && (s->buffer[0] == 'Y' || s->buffer[0] == '1'));
+    freeString(s);
+
+    if (VERBOSE) printf("Confirmed: %s\n", confirmed ? "YES" : "NO");
+
+    return confirmed;
 }
 
 void printc(char *chars, char *color) {
