@@ -16,12 +16,16 @@ typedef struct BDList {
 
 BDList *allocateBDList();
 
-void freeBDList(BDList *bdList);
+void freeBDList(BDList **bdList);
 
 
 struct BDLNode *getBDLNodeByIndex(BDList *bdList, size_t index);
 
 void appendToBDList(BDList *bdList, struct BDLNode *bdlNode);
+
+void removeFromBDList(BDList *bdList, struct BDLNode *bdlNode);
+
+struct BDLNode *findNodeByDataBDList(BDList *bdList, void *data);
 
 
 void mapBDList(BDList *bdList, void (*callback)(void *, size_t index, BDList *bdList));

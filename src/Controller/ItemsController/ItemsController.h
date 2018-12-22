@@ -15,7 +15,7 @@ int itemsControllerNew(Container *container);
 int itemsControllerEdit(Container *container, Item *item);
 
 
-void _itemsControllerPrint(Item *item, size_t index, BDList *bdList);
+void _itemsControllerPrintItem(Item *item, size_t index, BDList *bdList);
 
 int _itemsControllerDelete(Container *container, Item *item);
 

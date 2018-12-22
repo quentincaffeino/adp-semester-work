@@ -17,7 +17,7 @@ typedef struct BDLNode {
 
 BDLNode *allocateBDLNode(void *data, void (*pFreeDataCb)(void **));
 
-void freeBDLNode(BDLNode *bdlNode, int recursive);
+void freeBDLNode(BDLNode **bdlNode, bool recursive);
 
 
 void insertBDLNodeAfter(BDLNode *refBDLNode, BDLNode *newBDLNode);

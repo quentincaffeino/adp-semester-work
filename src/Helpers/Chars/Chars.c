@@ -23,26 +23,17 @@ char *readCharsLine(void *from) {
         }
 
         chars = realloc(chars, i + 1);
+        chars[i] = '\0';
     }
 
     return chars;
-}
-
-size_t charsLength(const char *chars) {
-    size_t length = 0;
-
-    if (chars) {
-        for (; chars[length] != '\0'; ++length);
-    }
-
-    return length;
 }
 
 char *copyChars(const char *chars) {
     char *newChars = NULL;
 
     if (chars != NULL) {
-        size_t length = charsLength(chars);
+        size_t length = strlen(chars);
         newChars = calloc(length + 1, sizeof(char));
         memcpy(newChars, chars, length);
     }

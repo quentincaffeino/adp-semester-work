@@ -16,9 +16,9 @@ BDList *bootstrapItemList() {
     BDList *fileItems = split(file->text, "BREAK\n", -1);
     if (VERBOSE) mapBDList(fileItems, &printString);
 
-    for (size_t i = 0; i < fileItems->length; ++i) {
+    for (size_t i = bdItemList->length; i < fileItems->length; ++i) {
         Item *item = allocateItem();
-        item->id = bdItemList->length;
+        item->id = i;
         appendToBDList(bdItemList, allocateBDLNode(item, &freeItem));
 
         BDList *fileItemLines = split(((String *) getBDLNodeByIndex(fileItems, i)->data), "\n", -1);
@@ -26,7 +26,9 @@ BDList *bootstrapItemList() {
 
         for (size_t j = 0; j < fileItemLines->length; ++j) {
             BDList *fileItemLineKV = split(((String *) getBDLNodeByIndex(fileItemLines, j)->data), "=", 2);
-            if (VERBOSE) mapBDList(fileItemLineKV, &printString);
+            if (VERBOSE) {
+                mapBDList(fileItemLineKV, &printString); printf("\n");
+            }
 
             if (fileItemLineKV->length == 2) {
                 String *key = (String *) getBDLNodeByIndex(fileItemLineKV, 0)->data;
@@ -36,18 +38,39 @@ BDList *bootstrapItemList() {
                     item->name = cloneString(value);
                 } else if (beginsWith(key, "description", 0)) {
                     item->description = cloneString(value);
+                } else if (beginsWith(key, "count", 0)) {
+                    item->count = charsToSizeT(value->buffer);
                 }
             }
 
-            freeBDList(fileItemLineKV);
+            freeBDList(&fileItemLineKV);
         }
 
-        freeBDList(fileItemLines);
+        freeBDList(&fileItemLines);
     }
 
 //    mapBDList(bdItemList, &printItem);
 
-    freeBDList(fileItems);
+    freeBDList(&fileItems);
     freeFile(file);
     return bdItemList;
+}
+
+Item *getItemByIdItemList(BDList *bdList, size_t id) {
+    if (VERBOSE) printf("ItemList: getItemByIdItemList: Length: %ld; Looking for: %ld\n", bdList->length, id);
+    for (size_t i = 0; i < bdList->length; ++i) {
+        BDLNode *currentNode = getBDLNodeByIndex(bdList, i);
+        Item *currentItem = (Item *) currentNode->data;
+
+        if (currentItem) {
+            if (VERBOSE) printf("ItemList: getItemByIdItemList: [%ld], current item id: %ld\n", i, currentItem->id);
+
+            if (currentItem->id == id) {
+                printf("ItemList: getItemByIdItemList: Found: ", id);
+                return (Item *) currentNode->data;
+            }
+        }
+    }
+
+    return NULL;
 }

@@ -21,15 +21,17 @@ void reallocString(String *string, size_t newSize) {
 }
 
 void freeString(String **string) {
-    free((*string)->buffer);
-    free(*string);
-    *string = NULL;
+    if (string && *string) {
+        free((*string)->buffer);
+        free(*string);
+        *string = NULL;
+    }
 }
 
 String *charsToString(const char *chars) {
     String *string = allocateString();
     string->buffer = copyChars(chars);
-    string->bufferLength = charsLength(chars) + 1;
+    string->bufferLength = strlen(chars) + 1;
     return string;
 }
 
@@ -65,7 +67,7 @@ String *subString(String *string, size_t beginning, size_t end) {
 }
 
 bool beginsWith(String *string, const char *chars, size_t offset) {
-    size_t charsLen = charsLength(chars);
+    size_t charsLen = strlen(chars);
     size_t i = 0;
 
 //    if (VERBOSE) {
@@ -109,7 +111,7 @@ struct BDList *split(String *string, const char *separator, size_t limit) {
     size_t beginning = 0;
     size_t end = 0;
     size_t tmpEnd = 0;
-    size_t separatorLength = charsLength(separator);
+    size_t separatorLength = strlen(separator);
 
     if (VERBOSE) {
         printc("String: split: ", NULL);
@@ -147,7 +149,7 @@ String *readStringLine(void *from) {
     if (from) {
         line = allocateString();
         line->buffer = readCharsLine(from);
-        line->bufferLength = charsLength(line->buffer) + 1;
+        line->bufferLength = strlen(line->buffer) + 1;
     }
 
     return line;

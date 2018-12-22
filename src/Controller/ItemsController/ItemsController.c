@@ -6,13 +6,35 @@ int itemsControllerIndex(Container *container) {
     while (1) {
         printTitle("Items");
 
-        mapBDList(container->state->items, &_itemsControllerPrint);
+        printf(" %-5s", "#");
+        printf(" | %-50s", "Name");
+        printf(" | %-50s", "Description");
+        printf(" | %-10s\n", "Count");
+        _printDivider(NULL, '=', width);
+        printf("\n");
+        mapBDList(container->state->items, &_itemsControllerPrintItem);
 
-        int action = getAction("1 - New", 1);
+        int action = getAction("1 - New; 2 - Edit", 2);
         switch (action) {
             case 1:
                 itemsControllerNew(container);
                 break;
+
+            case 2: {
+                Item *item = NULL;
+                do {
+                    printf("Select item to edit (id): ");
+                    size_t id = (size_t) readInt();
+
+                    item = getItemByIdItemList(container->state->items, id);
+                    if (item) {
+                        itemsControllerEdit(container, item);
+                    } else {
+                        printf("Could not find item with id: %ld, please try again.\n", id);
+                    }
+                } while (!item);
+                break;
+            }
 
             default:
                 return 0;
@@ -36,7 +58,7 @@ int itemsControllerEdit(Container *container, Item *item) {
     while (1) {
         printTitle("Items - Edit");
 
-        _itemsControllerPrint(item, 0, NULL);
+        printItem(item);
 
         int action = getAction("Change: 1 - Name; 2 - Description; 3 - Count; Other: 4 - Delete", 4);
         switch (action) {
@@ -63,20 +85,35 @@ int itemsControllerEdit(Container *container, Item *item) {
 }
 
 
-void _itemsControllerPrint(Item *item, size_t index, BDList *bdList) {
-    printf(" %-5ld |", item->id);
-    printf(" %-50s |", item->name->buffer);
-    printf(" %-50s", item->description->buffer);
+void _itemsControllerPrintItem(Item *item, size_t index, BDList *bdList) {
+    if (item) {
+        printf(" %-5ld", item->id);
+        printf(" | %-47.*s", 47, item->name->buffer);
+        if (strlen(item->name->buffer) >= 47) printf("..."); else printf("   ");
+        printf(" | %-47.*s", 47, item->description->buffer);
+        if (strlen(item->description->buffer) >= 47) printf("..."); else printf("   ");
+        printf(" | %-5ld", item->count);
 
-    printf("\n");
-    if (bdList && index + 1 < bdList->length) {
-        _printDivider(NULL, '-', width);
         printf("\n");
+        if (bdList && index + 1 < bdList->length) {
+            _printDivider(NULL, '-', width);
+            printf("\n");
+        }
     }
 }
 
+
 int _itemsControllerDelete(Container *container, Item *item) {
-    printf("This action couldn't be undone, are you sure you want to delete this item? [Y/n]");
+    BDLNode *bdlNode = findNodeByDataBDList(container->state->items, item);
+
+    if (bdlNode) {
+        printf("This action couldn't be undone, are you sure you want to delete this item? [1/0]: ");
+        bool decision = (bool) readInt();
+        removeFromBDList(container->state->items, bdlNode);
+    } else {
+        printf("Failed to remove item: \n");
+        printItem(item);
+    }
 
     return 0;
 }

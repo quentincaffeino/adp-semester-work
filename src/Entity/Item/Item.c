@@ -7,10 +7,12 @@ Item *allocateItem() {
 }
 
 void freeItem(Item **item) {
-    if ((*item)->name) freeString(&((*item)->name));
-    if ((*item)->description) freeString(&((*item)->description));
-    free(*item);
-    *item = NULL;
+    if (item && *item) {
+        if ((*item)->name) freeString(&(*item)->name);
+        if ((*item)->description) freeString(&(*item)->description);
+        free(*item);
+        *item = NULL;
+    }
 }
 
 
@@ -23,17 +25,19 @@ Item *newItem() {
 }
 
 void printItem(Item *item) {
-    printf("Id: %ld\n", item->id);
+    if (item) {
+        printf("Id: %ld\n", item->id);
 
-    if (item->name) {
-        printf("Name: `%s`\n", item->name->buffer);
+        if (item->name) {
+            printf("Name: `%s`\n", item->name->buffer);
+        }
+
+        if (item->description) {
+            printf("Description: `%s`\n", item->description->buffer);
+        }
+
+        printf("Count: %lu\n", item->count);
     }
-
-    if (item->description) {
-        printf("Description: `%s`\n", item->description->buffer);
-    }
-
-    printf("Count: %lu\n", item->count);
 }
 
 

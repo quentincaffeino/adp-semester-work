@@ -1,8 +1,10 @@
 name=hello world
 description=some test item
-properties=color:3=red;weight:5=200gk
+count=142
+properties=color=red;weight=200gk
 BREAK
 name=item 2
-description=description for second item
-properties=quantity:2=60
+description=this is a very long description for second item, that actually doesn't mean anything
+count=300
+properties=quantity=60
 BREAK

@@ -9,8 +9,9 @@ int main(int argc, char **argv) {
 
     Container *container = allocateContainer();
     int result = defaultControllerIndex(container);
+
     printf("Exiting...\n");
     freeContainer(container);
-
+    clrscr();
     return result;
 }

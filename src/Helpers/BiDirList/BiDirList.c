@@ -6,9 +6,11 @@ BDList *allocateBDList() {
     return calloc(1, sizeof(BDList));
 }
 
-void freeBDList(BDList *bdList) {
-    freeBDLNode(bdList->data, TRUE);
-    free(bdList);
+void freeBDList(BDList **bdList) {
+    if (bdList && *bdList) {
+        freeBDLNode(&(*bdList)->data, true);
+        free(*bdList);
+    }
 }
 
 
@@ -29,15 +31,38 @@ struct BDLNode *getBDLNodeByIndex(BDList *bdList, size_t index) {
 }
 
 void appendToBDList(BDList *bdList, struct BDLNode *bdlNode) {
-    if (bdList->length == 0) {
-        bdList->data = bdlNode;
-        bdList->_end = bdlNode;
-    } else {
-        insertBDLNodeAfter(bdList->_end, bdlNode);
-        bdList->_end = bdlNode;
-    }
+    if (bdList) {
+        if (bdList->length == 0) {
+            bdList->data = bdlNode;
+            bdList->_end = bdlNode;
+        } else {
+            insertBDLNodeAfter(bdList->_end, bdlNode);
+            bdList->_end = bdlNode;
+        }
 
-    ++bdList->length;
+        ++bdList->length;
+    }
+}
+
+void removeFromBDList(BDList *bdList, struct BDLNode *bdlNode) {
+    BDLNode *currentNode = bdList->data;
+
+    do {
+        if (currentNode == bdlNode) {
+            freeBDLNode(currentNode, false);
+            return;
+        }
+    } while (currentNode = currentNode->next);
+}
+
+struct BDLNode *findNodeByDataBDList(BDList *bdList, void *data) {
+    BDLNode *currentNode = bdList->data;
+
+    do {
+        if (currentNode->data == data) return currentNode;
+    } while (currentNode = currentNode->next);
+
+    return NULL;
 }
 
 

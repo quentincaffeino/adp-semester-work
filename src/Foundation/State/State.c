@@ -10,6 +10,6 @@ State *allocateState(struct Container *container) {
 }
 
 void freeState(State *state) {
-	freeBDList(state->items);
+	freeBDList(&state->items);
 	free(state);
 }

@@ -12,8 +12,6 @@
 
 char *readCharsLine(void *from);
 
-size_t charsLength(const char *chars);
-
 char *copyChars(const char *chars);
 
 

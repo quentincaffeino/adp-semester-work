@@ -11,4 +11,6 @@
 
 BDList *bootstrapItemList();
 
+Item *getItemByIdItemList(BDList *bdList, size_t id);
+
 #endif /* ITEMLIST_H */
