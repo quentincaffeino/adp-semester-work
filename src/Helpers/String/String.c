@@ -165,7 +165,8 @@ int readInt() {
     return x;
 }
 
-bool confirm() {
+bool confirm(char *message) {
+    printf("%s [Y/1/n/0]: ", message);
     String *s = readStringLine(stdin);
     bool confirmed = s->bufferLength == 1 || (s->bufferLength > 1 && (s->buffer[0] == 'Y' || s->buffer[0] == '1'));
     freeString(s);

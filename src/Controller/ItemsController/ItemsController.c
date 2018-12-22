@@ -110,8 +110,7 @@ int _itemsControllerDelete(Container *container, Item *item) {
     BDLNode *bdlNode = findNodeByDataBDList(container->state->items, item);
 
     if (bdlNode) {
-        printf("This action couldn't be undone, are you sure you want to delete this item? [Y/1/n/0]: ");
-        bool decision = confirm();
+        bool decision = confirm("This action couldn't be undone, are you sure you want to delete this item?");
         removeFromBDList(container->state->items, bdlNode);
     } else {
         printf("Failed to remove item: \n");
