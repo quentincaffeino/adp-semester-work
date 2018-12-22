@@ -80,9 +80,9 @@ struct BDLNode *findNodeByDataBDList(BDList *bdList, void *data) {
 
 
 void mapBDList(BDList *bdList, void (*callback)(void *, size_t index, BDList *bdList)) {
-    printf("BDList: mapBDList: Length: %ld\n", bdList->length);
+    if (VERBOSE) printf("BDList: mapBDList: Length: %ld\n", bdList->length);
     for (size_t i = 0; i < bdList->length; ++i) {
-        printf("BDList: mapBDList: [%ld]: ", i);
+        if (VERBOSE) printf("BDList: mapBDList: [%ld]: ", i);
         callback((void *) getBDLNodeByIndex(bdList, i)->data, i, bdList);
     }
 }

@@ -87,8 +87,6 @@ int itemsControllerEdit(Container *container, Item *item) {
 
 
 void _itemsControllerPrintItem(Item *item, size_t index, BDList *bdList) {
-    printf("idx: %ld\n", index);
-
     if (item) {
         printf(" %-5ld", item->id);
         printf(" | %-47.*s", 47, item->name->buffer);
@@ -111,7 +109,7 @@ int _itemsControllerDelete(Container *container, Item *item) {
 
     if (bdlNode) {
         bool decision = confirm("This action couldn't be undone, are you sure you want to delete this item?");
-        removeFromBDList(container->state->items, bdlNode);
+        if (decision) removeFromBDList(container->state->items, bdlNode);
     } else {
         printf("Failed to remove item: \n");
         printItem(item);
