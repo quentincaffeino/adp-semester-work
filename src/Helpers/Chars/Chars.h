@@ -19,4 +19,6 @@ int charsToInt(const char *chars);
 
 size_t charsToSizeT(const char *chars);
 
+char *sizeTToChars(size_t number);
+
 #endif /* CHARS_H */

@@ -37,7 +37,9 @@ void printString(String *string);
 
 String *subString(String *string, size_t beginning, size_t end);
 
-bool beginsWith(String *string, const char *chars, size_t offset);
+bool _beginsWith(String *string, const char *chars, size_t offset);
+
+bool beginsWith(String *string, const char *chars);
 
 long long int indexOf(String *string, const char *chars, size_t offset);
 

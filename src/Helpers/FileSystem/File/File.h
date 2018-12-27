@@ -17,7 +17,7 @@ typedef struct File {
 
 File *allocateFile();
 
-void freeFile(File *file);
+void freeFile(File **file);
 
 File *createFile(const char *path);
 

@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../../Helpers/String/String.h"
-#include "../PropertyArray/PropertyArray.h"
 
 
 typedef struct Item {
@@ -13,7 +12,8 @@ typedef struct Item {
     String *name;
     String *description;
     size_t count;
-    PropertyArray *properties;
+    size_t price;
+    BDList *properties;
 } Item;
 
 
@@ -32,5 +32,7 @@ void updateItemName(Item *item);
 void updateItemDescription(Item *item);
 
 void updateItemCount(Item *item);
+
+void updateItemPrice(Item *item);
 
 #endif /* ITEM_H */

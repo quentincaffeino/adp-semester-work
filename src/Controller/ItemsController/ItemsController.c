@@ -7,9 +7,10 @@ int itemsControllerIndex(Container *container) {
         printTitle("Items");
 
         printf(" %-5s", "#");
-        printf(" | %-50s", "Name");
-        printf(" | %-50s", "Description");
-        printf(" | %-10s\n", "Count");
+        printf(" | %-40s", "Name");
+        printf(" | %-80s", "Description");
+        printf(" | %-10s", "Count");
+        printf(" | %-10s\n", "Price");
         _printDivider(NULL, '=', width);
         printf("\n");
         mapBDList(container->state->items, &_itemsControllerPrintItem);
@@ -60,8 +61,11 @@ int itemsControllerEdit(Container *container, Item *item) {
         printTitle("Items - Edit");
 
         printItem(item);
+        _printDivider("Item Properties", '=', width);
+        _itemPropertiesControllerPrintItemPropertyList(item->properties);
 
-        int action = getAction("Change: 1 - Name; 2 - Description; 3 - Count; Other: 4 - Delete", 4);
+        int action = getAction(
+                "Change: 1 - Name, 2 - Description, 3 - Count, 4 - Price, 5 - Properties; Other: 6 - Delete", 6);
         switch (action) {
             case 1:
                 updateItemName(item);
@@ -76,6 +80,18 @@ int itemsControllerEdit(Container *container, Item *item) {
                 break;
 
             case 4:
+                updateItemPrice(item);
+                break;
+
+            case 5:
+                if (!item->properties) {
+                    item->properties = allocateBDList();
+                }
+
+                itemPropertiesControllerIndex(container, item);
+                break;
+
+            case 6:
                 _itemsControllerDelete(container, item);
                 return 0;
 
@@ -89,11 +105,12 @@ int itemsControllerEdit(Container *container, Item *item) {
 void _itemsControllerPrintItem(Item *item, size_t index, BDList *bdList) {
     if (item) {
         printf(" %-5ld", item->id);
-        printf(" | %-47.*s", 47, item->name->buffer);
-        if (strlen(item->name->buffer) >= 47) printf("..."); else printf("   ");
-        printf(" | %-47.*s", 47, item->description->buffer);
-        if (strlen(item->description->buffer) >= 47) printf("..."); else printf("   ");
-        printf(" | %-5ld", item->count);
+        printf(" | %-37.*s", 37, item->name->buffer);
+        if (strlen(item->name->buffer) >= 37) printf("..."); else printf("   ");
+        printf(" | %-77.*s", 77, item->description ? item->description->buffer : "");
+        if (item->description && strlen(item->description->buffer) >= 77) printf("..."); else printf("   ");
+        printf(" | %-10ld", item->count);
+        printf(" | %-10.2f", (double) item->price / 100.0);
 
         printf("\n");
         if (bdList && index + 1 < bdList->length) {
@@ -103,7 +120,6 @@ void _itemsControllerPrintItem(Item *item, size_t index, BDList *bdList) {
     }
 }
 
-
 int _itemsControllerDelete(Container *container, Item *item) {
     BDLNode *bdlNode = findNodeByDataBDList(container->state->items, item);
 
@@ -111,7 +127,7 @@ int _itemsControllerDelete(Container *container, Item *item) {
         bool decision = confirm("This action couldn't be undone, are you sure you want to delete this item?");
         if (decision) removeFromBDList(container->state->items, bdlNode);
     } else {
-        printf("Failed to remove item: \n");
+        printf("Failed to remove item:\n");
         printItem(item);
     }
 

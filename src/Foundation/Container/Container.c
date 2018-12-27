@@ -3,12 +3,22 @@
 
 
 Container *allocateContainer() {
-	Container *container = calloc(1, sizeof(Container));
-	container->state = allocateState(container);
-	return container;
+    return calloc(1, sizeof(Container));
 }
 
-void freeContainer(Container *container) {
-	freeState(container->state);
-	free(container);
+void freeContainer(Container **container) {
+    free(*container);
+    *container = NULL;
+}
+
+
+Container *bootstrapContainer() {
+    Container *container = allocateContainer();
+    container->state = bootstrapState(container);
+    return container;
+}
+
+void releaseContainer(Container **container) {
+    releaseState(&(*container)->state);
+    freeContainer(container);
 }

@@ -1,10 +1,124 @@
-name=hello world
-description=some test item
-count=142
-properties=color=red;weight=200gk
+name=Nintendo Switch – Neon Red and Neon Blue Joy-Con
+description=Nintendo Switch console, Nintendo Switch dock, Joy-Con (L) and Joy-Con (R), and Two Joy-Con strap accessories; One Joy-Con grip, HDMI cable, and Nintendo Switch AC adapter
+count=123
+price=29900
+properties=Color=Black;Release date=March 3, 2017:;
 BREAK
-name=item 2
-description=this is a very long description for second item, that actually doesn't mean anything
-count=300
-properties=quantity=60
+name=Nintendo Switch - Gray Joy-Con
+description=Introducing Nintendo Switch! In addition to providing single and multiplayer thrills at home, the Nintendo Switch system also enables gamers to play the same title wherever, whenever and with whomever they choose. The mobility of a handheld is now added to the power of a home gaming system to enable unprecedented new video game play styles.
+count=123
+price=29900
+properties=Color=Red;
+BREAK
+name=Nintendo Switch Pro Controller
+description=Take your game sessions up a notch with the Nintendo Switch Pro Controller.; Includes motion controls, HD rumble, built-in amiibo functionality, and more.; Comes with charging cable (USB-C to USB-A)
+count=123
+price=5400
+properties=Color=Black;
+BREAK
+name=Apple iPad (Wi-Fi, 32GB) - Space Gray (Latest Model)
+description=This is sample description
+count=123
+price=28900
+properties=Color=Space Gray;Display=9.7‑inch Retina display;Capacity=32GB, 128GB;Chip=A10 Fusion chip with 64-bit architecture, Embedded M10 coprocessor;Camera and Video=8MP camera with HDR and 1080p HD video;
+BREAK
+name=Samsung 128GB 100MB/s (U3) MicroSD EVO Select Memory Card with Adapter (MB-ME128GA/AM)
+description=This is sample description
+count=123
+price=2400
+BREAK
+name=Bose QuietComfort 35 (Series II) Wireless Headphones, Noise Cancelling, with Alexa voice control - Black
+description=Hello world description
+count=234
+price=765434
+BREAK
+name=AmazonBasics AA Performance Alkaline Batteries (48 Count) - Packaging May Vary
+description=Hello world description
+count=234
+price=765434
+BREAK
+name=Pokemon: Let's Go, Pikachu!
+description=Hello world description
+count=234
+price=765434
+BREAK
+name=Tile Mate with Replaceable Battery - 1 pack - NEW
+description=Hello world description
+count=234
+price=765434
+BREAK
+name=Fujifilm Instax Mini Instant Film (3 Twin Packs, 60 Total Pictures) - International Version
+description=Hello world description
+count=234
+price=765434
+BREAK
+name=Roku Express | Easy High Definition (HD) Streaming Media Player
+description=Hello world description
+count=234
+price=765434
+BREAK
+name=Wyze Cam 1080p HD Indoor Wireless Smart Home Camera with Night Vision, 2-Way Audio, Works with Alexa
+description=Hello world description
+count=234
+price=765434
+BREAK
+name=Samsung 860 EVO 1TB 2.5 Inch SATA III Internal SSD (MZ-76E1T0B/AM)
+description=Hello world description
+count=234
+price=765434
+BREAK
+name=DualShock 4 Wireless Controller for PlayStation 4 - Jet Black
+description=Hello world description
+count=234
+price=765434
+BREAK
+name=SanDisk 64GB Ultra microSDXC UHS-I Memory Card with Adapter - 100MB/s, C10, U1, Full HD, A1, Micro SD Card - SDSQUAR-064G-GN6MA
+description=Hello world description
+count=234
+price=765434
+BREAK
+name=Fitbit Versa Smart Watch, Black/Black Aluminium, One Size (S & L Bands Included)
+description=Hello world description
+count=234
+price=765434
+BREAK
+name=BENGOO G9000 Stereo Gaming Headset for PS4, PC, Xbox One Controller, Noise Cancelling Over Ear Headphones with Mic, LED Light, Bass Surround, Soft Memory Earmuffs for Laptop Mac Nintendo Switch Games
+description=Hello world description
+count=234
+price=765434
+BREAK
+name=PlayStation 4 Slim 1TB Console - Call of Duty: Black Ops 4 Bundle
+description=Hello world description
+count=234
+price=765434
+BREAK
+name=Xbox One S 1TB Console - Battlefield V Bundle
+description=Hello world description
+count=234
+price=765434
+BREAK
+name=Nintendo Joy-Con (L/R) - Neon Red/Neon Blue
+description=Hello world description
+count=234
+price=765434
+BREAK
+name=Apple Watch Series 3 (GPS, 42mm) - Space Gray Aluminium Case with Black Sport Band
+description=Hello world description
+count=234
+price=765434
+BREAK
+name=JBL Flip 4 Waterproof Portable Bluetooth Speaker (Black)
+description=Hello world description
+count=234
+price=765434
+BREAK
+name=OontZ Angle 3 Enhanced Stereo Edition IPX5 Splashproof Portable Bluetooth Speaker with Volume Booster AMP 10 Watts Power, Custom Bass Radiator, 100' Wireless Range Bluetooth 4.2
+description=Hello world description
+count=234
+price=765434
+BREAK
+name=PlayStation 4 Slim 1TB Console
+description=Hello world description
+count=234
+price=765434
 BREAK

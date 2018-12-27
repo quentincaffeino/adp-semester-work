@@ -95,3 +95,9 @@ size_t charsToSizeT(const char *chars) {
 
     return result;
 }
+
+char *sizeTToChars(size_t number) {
+    char *chars = calloc(CHARS_BUFFER_SIZE, sizeof(char));
+    sprintf(chars, "%ld", number);
+    return chars;
+}

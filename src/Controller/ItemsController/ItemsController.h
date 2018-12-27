@@ -4,11 +4,10 @@
 
 #include <stdio.h>
 #include "../Controller.h"
+#include "../ItemPropertiesController/ItemPropertiesController.h"
 
 
 int itemsControllerIndex(Container *container);
-
-int itemsControllerList(Container *container);
 
 int itemsControllerNew(Container *container);
 

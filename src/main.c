@@ -5,13 +5,14 @@
 
 
 int main(int argc, char **argv) {
+    printf("Loading...\n");
+    Container *container = bootstrapContainer();
     clrscr();
 
-    Container *container = allocateContainer();
     int result = defaultControllerIndex(container);
 
     printf("Exiting...\n");
-    freeContainer(container);
+    releaseContainer(&container);
     clrscr();
     return result;
 }

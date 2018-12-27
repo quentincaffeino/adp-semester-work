@@ -13,8 +13,13 @@ typedef struct State {
 } State;
 
 
-State *allocateState(struct Container *container);
+State *allocateState();
 
-void freeState(State *state);
+void freeState(State **state);
+
+
+State *bootstrapState(struct Container *container);
+
+void releaseState(State **state);
 
 #endif /* STATE_H */

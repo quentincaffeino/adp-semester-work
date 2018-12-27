@@ -12,6 +12,11 @@ typedef struct Container {
 
 Container *allocateContainer();
 
-void freeContainer(Container *container);
+void freeContainer(Container **container);
+
+
+Container *bootstrapContainer();
+
+void releaseContainer(Container **container);
 
 #endif /* CONTAINER_H */

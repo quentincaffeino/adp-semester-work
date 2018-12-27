@@ -12,4 +12,19 @@ typedef struct Property {
     String *description;
 } Property;
 
+
+Property *allocateProperty();
+
+void freeProperty(Property **property);
+
+
+Property *newProperty();
+
+void printProperty(Property *property);
+
+
+void updatePropertyName(Property *property);
+
+void updatePropertyDescription(Property *property);
+
 #endif /* PROPERTY_H */

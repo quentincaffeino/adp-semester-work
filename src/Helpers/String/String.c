@@ -66,7 +66,7 @@ String *subString(String *string, size_t beginning, size_t end) {
     return string;
 }
 
-bool beginsWith(String *string, const char *chars, size_t offset) {
+bool _beginsWith(String *string, const char *chars, size_t offset) {
     size_t charsLen = strlen(chars);
     size_t i = 0;
 
@@ -92,11 +92,15 @@ bool beginsWith(String *string, const char *chars, size_t offset) {
     return i == charsLen;
 }
 
+bool beginsWith(String *string, const char *chars) {
+    return _beginsWith(string, chars, 0);
+}
+
 long long int indexOf(String *string, const char *chars, size_t offset) {
     size_t i = offset;
 
     while (i < string->bufferLength) {
-        if (beginsWith(string, chars, i)) return i;
+        if (_beginsWith(string, chars, i)) return i;
 
         ++i;
     }
@@ -166,9 +170,10 @@ int readInt() {
 }
 
 bool confirm(char *message) {
-    printf("%s [Y/1/n/0]: ", message);
+    printf("%s [y/Y/1/*]: ", message);
     String *s = readStringLine(stdin);
-    bool confirmed = s->bufferLength == 1 || (s->bufferLength > 1 && (s->buffer[0] == 'Y' || s->buffer[0] == '1'));
+    bool confirmed = s->bufferLength == 1 ||
+                     (s->bufferLength > 1 && (s->buffer[0] == 'y' || s->buffer[0] == 'Y' || s->buffer[0] == '1'));
     freeString(s);
 
     if (VERBOSE) printf("Confirmed: %s\n", confirmed ? "YES" : "NO");
