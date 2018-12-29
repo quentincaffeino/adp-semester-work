@@ -7,6 +7,14 @@
 #include "../ItemPropertiesController/ItemPropertiesController.h"
 
 
+#define ITEMS_PERPAGE 10
+
+
+static int ITEMS_PAGE = 0;
+
+static int ITEMS_ON_CURRENT_PAGE = 0;
+
+
 int itemsControllerIndex(Container *container);
 
 int itemsControllerNew(Container *container);

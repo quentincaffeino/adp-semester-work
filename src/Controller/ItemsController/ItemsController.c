@@ -13,15 +13,31 @@ int itemsControllerIndex(Container *container) {
         printf(" | %-10s\n", "Price");
         _printDivider(NULL, '=', width);
         printf("\n");
+        ITEMS_ON_CURRENT_PAGE = 0;
         mapBDList(container->state->items, &_itemsControllerPrintItem);
+        printf("Current page: %d\n", ITEMS_PAGE + 1);
 
-        int action = getAction("1 - New; 2 - Edit", 2);
+        int action = 0;
+        if (ITEMS_PAGE > 0) {
+            action = getAction("Page: 1 - Prev, 2 - Next; Items: 3 - New, 4 - Edit", 4);
+        } else {
+            action = getAction("Page: 2 - Next; Items: 3 - New, 4 - Edit", 4);
+        }
+
         switch (action) {
             case 1:
+                if (ITEMS_PAGE > 0) --ITEMS_PAGE;
+                break;
+
+            case 2:
+                ++ITEMS_PAGE;
+                break;
+
+            case 3:
                 itemsControllerNew(container);
                 break;
 
-            case 2: {
+            case 4: {
                 Item *item = NULL;
 
                 do {
@@ -103,7 +119,10 @@ int itemsControllerEdit(Container *container, Item *item) {
 
 
 void _itemsControllerPrintItem(Item *item, size_t index, BDList *bdList) {
-    if (item) {
+    if (item &&
+        ITEMS_ON_CURRENT_PAGE >= ITEMS_PERPAGE * ITEMS_PAGE &&
+        ITEMS_ON_CURRENT_PAGE < ITEMS_PERPAGE * (ITEMS_PAGE + 1)
+            ) {
         printf(" %-5ld", item->id);
         printf(" | %-37.*s", 37, item->name->buffer);
         if (strlen(item->name->buffer) >= 37) printf("..."); else printf("   ");
@@ -118,6 +137,8 @@ void _itemsControllerPrintItem(Item *item, size_t index, BDList *bdList) {
             printf("\n");
         }
     }
+
+    ++ITEMS_ON_CURRENT_PAGE;
 }
 
 int _itemsControllerDelete(Container *container, Item *item) {

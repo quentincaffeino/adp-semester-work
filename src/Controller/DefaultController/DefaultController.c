@@ -4,9 +4,9 @@
 
 int defaultControllerIndex(Container *container) {
     while (1) {
-        printTitle("Index Dashboard");
+        printTitle("Dashboard");
 
-        printf("%-20s", "Items Kinds Total");
+        printf(" %-20s", "Items Kinds Total");
         printf(" | %-20s", "Items Total");
         printf(" | %-20s", "Total Price");
         printf(" | %-20s\n", "Avg. Price");
