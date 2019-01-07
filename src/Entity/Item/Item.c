@@ -4,7 +4,11 @@
 
 Item *allocateItem() {
     Item *item = calloc(1, sizeof(Item));
-    item->properties = allocateBDList();
+
+    if (item) {
+        item->properties = allocateBDList();
+    }
+
     return item;
 }
 
@@ -22,9 +26,13 @@ void freeItem(Item **item) {
 
 Item *newItem() {
     Item *item = allocateItem();
-    updateItemName(item);
-    updateItemDescription(item);
-    updateItemCount(item);
+
+    if (item) {
+        updateItemName(item);
+        updateItemDescription(item);
+        updateItemCount(item);
+    }
+
     return item;
 }
 

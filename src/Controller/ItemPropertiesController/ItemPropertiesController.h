@@ -16,6 +16,6 @@ int itemPropertiesControllerEdit(Container *container, Property *property);
 
 void _itemPropertiesControllerPrintItemPropertyList(BDList *bdList);
 
-void _itemPropertiesControllerPrintItemProperty(Item *item, size_t index, BDList *bdList);
+void _itemPropertiesControllerPrintItemProperty(Property *property, size_t index, BDList *bdList);
 
 #endif /* ITEMPROPERTIESCONTROLLER_H */

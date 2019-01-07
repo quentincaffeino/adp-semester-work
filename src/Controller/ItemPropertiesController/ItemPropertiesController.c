@@ -15,19 +15,19 @@ int itemPropertiesControllerIndex(Container *container, Item *item) {
                 break;
 
             case 2: {
-                Item *item = NULL;
+                Property *property = NULL;
 
                 do {
-                    printf("Select item to edit (id): ");
+                    printf("Select property to edit (id): ");
                     size_t id = (size_t) readInt();
 
-                    item = getItemByIdItemList(container->state->items, id);
-                    if (item) {
-                        itemsControllerEdit(container, item);
+                    property = getItemByIdItemList(item->properties, id);
+                    if (property) {
+                        itemPropertiesControllerEdit(container, property);
                     } else {
-                        printf("Could not find item with id: %ld, please try again.\n", id);
+                        printf("Could not find property with id: %ld, please try again.\n", id);
                     }
-                } while (!item);
+                } while (!property);
                 break;
             }
 
@@ -48,7 +48,29 @@ int itemPropertiesControllerNew(Container *container, Item *item) {
 }
 
 int itemPropertiesControllerEdit(Container *container, Property *property) {
-    printTitle("Item Properties - Edit");
+    while (1) {
+        printTitle("Item Property - Edit");
+
+        printProperty(property);
+
+        int action = getAction("Change: 1 - Name, 2 - Description; Other: 3 - Delete", 3);
+        switch (action) {
+            case 1:
+                updatePropertyName(property);
+                break;
+
+            case 2:
+                updatePropertyDescription(property);
+                break;
+
+            case 3:
+                _itemsControllerDelete(container, property);
+                return 0;
+
+            default:
+                return 0;
+        }
+    }
 }
 
 
@@ -61,13 +83,13 @@ void _itemPropertiesControllerPrintItemPropertyList(BDList *bdList) {
     mapBDList(bdList, &_itemPropertiesControllerPrintItemProperty);
 }
 
-void _itemPropertiesControllerPrintItemProperty(Item *item, size_t index, BDList *bdList) {
-    if (item) {
-        printf(" %-5ld", item->id);
-        printf(" | %-47.*s", 47, item->name->buffer);
-        if (strlen(item->name->buffer) >= 47) printf("..."); else printf("   ");
-        printf(" | %-77.*s", 77, item->description->buffer);
-        if (strlen(item->description->buffer) >= 77) printf("..."); else printf("   ");
+void _itemPropertiesControllerPrintItemProperty(Property *property, size_t index, BDList *bdList) {
+    if (property) {
+        printf(" %-5ld", property->id);
+        printf(" | %-47.*s", 47, property->name ? property->name->buffer : "");
+        if (property->name && strlen(property->name->buffer) >= 47) printf("..."); else printf("   ");
+        printf(" | %-77.*s", 77, property->description ? property->description->buffer : "");
+        if (property->description && strlen(property->description->buffer) >= 77) printf("..."); else printf("   ");
 
         printf("\n");
         if (bdList && index + 1 < bdList->length) {

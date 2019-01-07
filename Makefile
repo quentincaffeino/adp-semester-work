@@ -5,9 +5,12 @@ PROGRAM_PATH=./bin/$(PROGRAM_NAME)
 
 default: build run
 
-full: clean build debug
+full: clean debug
 
 build:
+	scons target=default
+
+build_debug:
 	scons
 
 clean:
@@ -16,7 +19,7 @@ clean:
 	$(RM) -f src/*/*.os
 	$(RM) -f bin/*.a
 
-debug: build
+debug: build_debug
 	valgrind --leak-check=full $(PROGRAM_PATH) --verbose=true
 
 run:

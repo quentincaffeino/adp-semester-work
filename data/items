@@ -1,4 +1,4 @@
-name=Nintendo Switch – Neon Red and Neon Blue Joy-Con
+name=Nintendo Switch - Neon Red and Neon Blue Joy-Con
 description=Nintendo Switch console, Nintendo Switch dock, Joy-Con (L) and Joy-Con (R), and Two Joy-Con strap accessories; One Joy-Con grip, HDMI cable, and Nintendo Switch AC adapter
 count=123
 price=29900
@@ -51,8 +51,9 @@ name=Fujifilm Instax Mini Instant Film (3 Twin Packs, 60 Total Pictures) - Inter
 description=Hello world description
 count=234
 price=765434
+properties=New test property=New test property description;
 BREAK
-name=Roku Express | Easy High Definition (HD) Streaming Media Player
+name=Roku Express | Easy High Definition (HD) Streaming Media Player
 description=Hello world description
 count=234
 price=765434
@@ -102,7 +103,7 @@ description=Hello world description
 count=234
 price=765434
 BREAK
-name=Apple Watch Series 3 (GPS, 42mm) - Space Gray Aluminium Case with Black Sport Band
+name=Apple Watch Series 3 (GPS, 42mm) - Space Gray Aluminium Case with Black Sport Band
 description=Hello world description
 count=234
 price=765434
